@@ -26,5 +26,18 @@ export default function renderChart(props) {
       });
       window.postMessage(paramsString);
     });
+    myChart.on('legendselectchanged', function(params) {
+      var seen = [];
+      var paramsString = JSON.stringify(params, function(key, val) {
+        if (val != null && typeof val == "object") {
+          if (seen.indexOf(val) >= 0) {
+            return;
+          }
+          seen.push(val);
+        }
+        return val;
+      });
+      window.postMessage(paramsString);
+    });
   `
 }
